@@ -2,7 +2,6 @@ const std = @import("std");
 const warn = std.debug.warn;
 
 fn format(allocator: std.mem.Allocator, source: [:0]const u8) ![]u8 {
-
     var tree = try std.zig.parse(allocator, source);
     defer tree.deinit(allocator);
 
@@ -43,7 +42,7 @@ pub fn main() anyerror!void {
         try file.seekTo(0);
         _ = try file.readAll(memory);
 
-        var memory2: [:0]u8 = memory[0..stat.size:0];
+        var memory2: [:0]u8 = memory[0..stat.size :0];
 
         for (memory) |b, j| {
             memory2[j] = b;
@@ -51,7 +50,8 @@ pub fn main() anyerror!void {
 
         if (stat.size != 0) {
             var out = try format(a, memory2);
-            std.debug.print("{s}", .{out});
+            const stdout = std.io.getStdOut().writer();
+            try stdout.print("{s}", .{out});
         }
     }
 }
