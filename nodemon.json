@@ -1,5 +1,5 @@
 {
     "ext": "zig",
-    "exec": "zig build run -- build.zig",
+    "exec": "cat build.zig | zig build run",
     "watch": ["src/*.zig"]
 }
